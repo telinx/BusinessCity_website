@@ -5,7 +5,7 @@ CREATE TABLE `u_permission` (
   `url` varchar(256) DEFAULT NULL COMMENT 'url地址',
   `name` varchar(64) DEFAULT NULL COMMENT 'url描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
 /*Table structure for table `u_role` */
 DROP TABLE IF EXISTS `u_role`;

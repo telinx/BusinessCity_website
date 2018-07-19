@@ -18,13 +18,13 @@ import java.util.Map;
  * create time 2018/7/11
  * desc:shiro的相关配置
  */
-@Configuration
+//@Configuration
 public class ShiroConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
 
     @Bean
-    public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
+    public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         //设置SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
