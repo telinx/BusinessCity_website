@@ -1,4 +1,4 @@
-package com.jianfei.shop.shiro;
+package com.jianfei.shop.configuration;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;

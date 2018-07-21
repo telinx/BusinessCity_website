@@ -18,10 +18,15 @@ import javax.sql.DataSource;
  */
 @Configuration
 public class DruidConfig {
-    @Bean
-    public DataSource druidDataSource() {
-        return new DruidDataSource();
-    }
+
+    /**
+     * 这里的bean注入不能存在，否则因为没有连接信息，会出现空指针异常
+     * @return
+     */
+//    @Bean
+//    public DataSource druidDataSource() {
+//        return new DruidDataSource();
+//    }
 
     @Bean
     public ServletRegistrationBean druidServlet() {
