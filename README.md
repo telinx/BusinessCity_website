@@ -23,22 +23,19 @@
 ```
 工程在不断的开发中，不断的添加各个组建
 
-day1:
+**step1:**
 系统使用SLf4J+logback来打印日志，日志集中在一个文件夹中，方便后期的查阅解析。
 
 **ques:**在日志打印配置的时候，考虑一个问题，日志打印应该如何配置最好，是将所有的日志打印到一个日志文件，还是将日志类型进行分离，放置到不同的文件中？
 如果是后者，那么应该如何配置？配置请见log.xml
 
-day2：
+**step2:**
 Spring-boot集成Druid和监控配置
 ```text
 spring-boot集成了Druid数据源，进行了监控的配置，系统启动之后：访问http://127.0.0.1:8080/druid/index.html：用户名 admin,密码123456即可进行监控
-
 ```
 
-
-
-day3:结合shiro进行登录实现
+**step3:结合shiro进行登录实现**
 ```text
 系统集成了Apache Shiro框架,shiro是一个系统安全框架，shiro强大且易用的Java安全框架,执行身份验证、授权、密码学和会话管理。
 Shiro能做什么呢？
@@ -80,5 +77,6 @@ SecurityManager：管理所有Subject，SecurityManager 是 Shiro 架构的核�
 Realms：用于进行权限信息的验证，我们自己实现。Realm 本质上是一个特定的安全 DAO：它封装与数据源连接的细节，得到Shiro 所需的相关的数据。在配置 Shiro 的时候，你必须指定至少一个Realm 来实现认证（authentication）和/或授权（authorization）。
 
 首先采用 RBAC模式建立数据库，RBAC 是基于角色的访问控制（Role-Based Access Control ）
-
 ```
+
+**step4:实现单点登录**

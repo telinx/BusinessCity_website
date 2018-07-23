@@ -23,6 +23,11 @@ public class ShiroConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
 
+    /**
+     * shiro中较为核心的类，拦截subject的操作进行相关的处理，然后判断是否提交给SecurityManager进行处理
+     * @param securityManager
+     * @return
+     */
     @Bean
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
