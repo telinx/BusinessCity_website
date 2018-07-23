@@ -16,8 +16,8 @@ import org.springframework.context.annotation.Configuration;
  * spring-boot应用启动入口
  */
 @SpringBootApplication
-//@ServletComponentScan
-//@Configuration
+@ServletComponentScan
+@Configuration
 @MapperScan("com.jianfei.shop.mybatis.dao")
 public class ShopApplication {
 

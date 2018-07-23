@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * create time 2018/7/22
  * user controll的rest实现
  */
-@RestController(value = "/userV1")
+@RestController(value = "/user/V1")
 public class UserRestController {
 
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)

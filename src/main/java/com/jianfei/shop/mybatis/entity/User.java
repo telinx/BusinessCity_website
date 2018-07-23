@@ -5,12 +5,14 @@ import lombok.Setter;
 import org.elasticsearch.search.DocValueFormat;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @author pangjianfei
  * create time 2018/7/20
  * 用户实体
  */
+
 public class User {
     //用户名
     private String username;
@@ -24,6 +26,9 @@ public class User {
     private Date lastLoginTime;
     //当前状态
     private Integer status;
+
+    //一个用户对应多个角色
+    private Set<Role> role;
 
     public User(){}
 
@@ -75,4 +80,11 @@ public class User {
         this.status = status;
     }
 
+    public void setRole(Set<Role> role) {
+        this.role = role;
+    }
+
+    public Set<Role> getRole() {
+        return role;
+    }
 }

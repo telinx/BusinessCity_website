@@ -1,19 +1,21 @@
 package com.jianfei.shop.controller;
 
-import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jianfei.shop.model.standard.StandardJsonObject;
 import com.jianfei.shop.mybatis.entity.User;
 import com.jianfei.shop.service.UserService;
 import com.jianfei.shop.utils.JsonUtils;
-import com.rabbitmq.tools.json.JSONUtil;
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
+    private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -49,5 +53,27 @@ public class UserController {
             e.printStackTrace();
         }
 
+    }
+
+
+    /**
+     * 登录
+     * @param username
+     * @param password
+     * @param response
+     */
+    @RequestMapping("/login")
+    public void login(@RequestParam String username, @RequestParam String password,HttpServletResponse response){
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username,password);
+        try{
+            subject.login(usernamePasswordToken);
+            if(subject.isAuthenticated()) {
+                JsonUtils.writeJsonToResponse(response, JSON.toJSONString("使用shiro登录成功"));
+            }
+        }catch (AuthenticationException e) {
+            e.printStackTrace();
+            logger.info("登录验证失败");
+        }
     }
 }

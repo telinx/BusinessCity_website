@@ -1,14 +1,21 @@
 package com.jianfei.shop.configuration;
 
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import com.jianfei.shop.mybatis.entity.Role;
+import com.jianfei.shop.mybatis.entity.SysPermission;
+import com.jianfei.shop.mybatis.entity.User;
+import com.jianfei.shop.service.UserService;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * @author pangjianfei
@@ -21,6 +28,9 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     private static Logger logger = LoggerFactory.getLogger(MyShiroRealm.class);
 
+    @Autowired
+    private UserService userService;
+
     /**
      * 进行授权：权限查询
      * @param principalCollection
@@ -28,7 +38,16 @@ public class MyShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        SimpleAuthorizationInfo simpleAuthorizationInfo = null;
+        logger.info("开始进行权限查询");
+        User userInfo  = (User)principalCollection.getPrimaryPrincipal();
+        for(Role role : userInfo.getRole()){
+            simpleAuthorizationInfo.addRole(role.getRole());
+            for(SysPermission p:role.getPermissionList()){
+                simpleAuthorizationInfo.addStringPermission(p.getPermission());
+            }
+        }
+        return simpleAuthorizationInfo;
     }
 
     /**
@@ -39,11 +58,29 @@ public class MyShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+        SimpleAuthenticationInfo simpleAuthenticationInfo = null;
         logger.info("开始进行身份认证：MyShiroRealm.doGetAuthenticationInfo");
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
         String name = token.getUsername();
         String password = String.valueOf(token.getPassword());
+        User user = userService.getUser(name,password);
+        logger.info("登录验证结果：{}",user.toString());
+        if(user != null) {
+            // 如果查询到了，封装查询结果，返回给我们的调用
+            Object principal =  user.getUsername();
+            Object credentials = user.getPassword();
 
-        return null;
+            // 获取盐值，即用户名
+            ByteSource salt = ByteSource.Util.bytes(name);
+            String realmName = this.getName();
+            // 将账户名，密码，盐值，realmName实例化到SimpleAuthenticationInfo中交给Shiro来管理
+            simpleAuthenticationInfo  =
+                    new SimpleAuthenticationInfo(principal,credentials,salt,realmName);
+        }else {
+            throw new AuthenticationException();
+        }
+        return simpleAuthenticationInfo;
+
+
     }
 }
