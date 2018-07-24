@@ -7,6 +7,7 @@ import com.jianfei.shop.service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.cas.CasRealm;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
@@ -23,8 +24,9 @@ import javax.annotation.Resource;
  * 认证的Realm，在认证、授权内部实现机制中都有提到，最终处理都将交给Real进行处理
  * 在Shiro中，最终是通过Realm来获取应用程序中的用户、角色及权限信息的。通常情况下，在Realm中会直接从我们的数据源中获取Shiro需要的验证信息。
  * 可以说，Realm是专用于安全框架的DAO.
+ * 为了实现单点登录，MyShiroRealm继承CasShiroRealm
  */
-public class MyShiroRealm extends AuthorizingRealm {
+public class MyShiroRealm extends CasRealm/*AuthorizingRealm*/ {
 
     private static Logger logger = LoggerFactory.getLogger(MyShiroRealm.class);
 

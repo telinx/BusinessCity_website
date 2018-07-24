@@ -16,12 +16,57 @@ import java.util.Map;
 /**
  * @author pangjianfei
  * create time 2018/7/11
- * desc:shiro的相关配置
+ * desc:shiro的相关配置，这里也对shiro的单点登录进行了配置
  */
 @Configuration
 public class ShiroConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
+
+    /**
+     * cas server地址
+     */
+    public static final String CAS_SERVER_URL_PREFIX = "http://127.0.0.1";
+
+    /**
+     * CAS登录页面地址
+     */
+    public static final String CAS_LOGIN_URL = CAS_SERVER_URL_PREFIX + "/login";
+
+    /**
+     * CAS注销页面地址
+     */
+    public static final String CAS_LOGOUT_URL = CAS_SERVER_URL_PREFIX + "/logout";
+
+    /**
+     * 当前工程对外提供的服务地址
+     */
+    public static final String SHIRO_SERVER_URL_PREFIX = "http://127.0.1.28:8080";
+
+    /**
+     * casFilter UrlPattern
+     */
+    public static final String CAS_FILTER_URL_PATTERN = "/index";
+
+    /**
+     *  登录地址
+     */
+    public static final String LOGIN_URL = CAS_LOGIN_URL + "?service=" + SHIRO_SERVER_URL_PREFIX + CAS_FILTER_URL_PATTERN;
+
+    /**
+     * 登出地址（casserver启用service跳转功能，需在webapps\cas\WEB-INF\cas.properties文件中启用
+     * cas.logout.followServiceRedirects=true）
+     */
+    public static final String LOGOUT_URL = CAS_LOGIN_URL+"?service="+LOGIN_URL;
+
+    /**
+     * 登录成功地址
+     */
+    public static final String LOGIN_SUCCESS_URL = "/index";
+    /**
+     * 权限认证失败跳转地址
+     */
+    public static final String UNAUTHORIZED_URL = "/error/403.html";
 
     /**
      * shiro中较为核心的类，拦截subject的操作进行相关的处理，然后判断是否提交给SecurityManager进行处理
@@ -53,6 +98,10 @@ public class ShiroConfig {
         return shiroFilterFactoryBean;
     }
 
+    /**
+     * 配置SecurityManager，Subject交给该类进行处理
+     * @return
+     */
     @Bean
     public SecurityManager securityManager(){
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
@@ -61,13 +110,20 @@ public class ShiroConfig {
         return securityManager;
     }
 
+
+
     /**
-     * 进行身份认证的Realm
+     * 进行身份认证的Realm,配置为cas Realm,已经集成了单点登录的功能
      * @return
      */
     @Bean
     public Realm myShiroRealm(){
         MyShiroRealm myShiroRealm = new MyShiroRealm();
+        //设置cas登录服务器地址前缀
+        myShiroRealm.setCasServerUrlPrefix(CAS_SERVER_URL_PREFIX);
+        //客户端回调地址，登录成功后的跳转地址
+        myShiroRealm.setCasService(CAS_SERVER_URL_PREFIX+CAS_FILTER_URL_PATTERN);
+        myShiroRealm.setDefaultRoles("common");
         return myShiroRealm;
     }
 
