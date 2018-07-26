@@ -7,3 +7,5 @@ AnnotationConfigWebApplicationContext类进行扫描，并用于构建bean定义
 @Configuration不可以是final类型；
 @Configuration不可以是匿名类；
 嵌套的configuration必须是静态类。
+
+2.Spring DefaultAdvisorAutoProxyCreator类详解
