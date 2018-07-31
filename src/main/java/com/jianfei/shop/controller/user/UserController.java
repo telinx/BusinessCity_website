@@ -1,4 +1,4 @@
-package com.jianfei.shop.controller;
+package com.jianfei.shop.controller.user;
 
 import com.alibaba.fastjson.JSON;
 import com.jianfei.shop.model.standard.StandardJsonObject;
