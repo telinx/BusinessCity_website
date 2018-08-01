@@ -78,7 +78,5 @@ public class MyShiroRealm extends AuthorizingRealm {
             throw new AuthenticationException();
         }
         return simpleAuthenticationInfo;
-
-
     }
 }

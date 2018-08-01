@@ -76,4 +76,9 @@ public class UserController {
             logger.info("登录验证失败");
         }
     }
+
+    @RequestMapping("/loginPage")
+    public String toLoginPage(){
+        return "login";
+    }
 }

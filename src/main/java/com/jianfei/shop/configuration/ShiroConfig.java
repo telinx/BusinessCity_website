@@ -35,7 +35,7 @@ public class ShiroConfig {
         //设置SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         //如果不设置会默认寻找Web工程目录下的"/login.jsp"页面
-        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setLoginUrl("/user/loginPage");
         //登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/index");
         //未授权界面
@@ -48,7 +48,7 @@ public class ShiroConfig {
         //配置退出过滤器,具体退出的实现shiro已经进行了封装
         filterChainDefinationMap.put("/logout","logout");
         // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
-        filterChainDefinationMap.put("/**", "anon");
+        filterChainDefinationMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinationMap);
         logger.info("Shiro拦截器工厂类注入成功");
         return shiroFilterFactoryBean;
