@@ -5,6 +5,7 @@ import com.jianfei.shop.service.GoodsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 商品相关的controller
  */
 @RequestMapping("/goodsOperate")
+@Controller
 public class GoodsController {
 
     private Logger logger = LoggerFactory.getLogger("serviceLog");
@@ -29,14 +31,14 @@ public class GoodsController {
     @RequestMapping(value = "/buy")
     @ResponseBody
     public StandardJsonObject buyGoodsById(String id){
-
+        logger.info("buy,{}",id);
         StandardJsonObject standardJsonObject = new StandardJsonObject();
         return  standardJsonObject;
     }
 
     @RequestMapping(value = "/detail")
     public String getPageDetail(String id){
-        logger.info("get goods detail");
+        logger.info("get goods detail,{}",id);
         return "/goods/goodsDetail";
     }
 }

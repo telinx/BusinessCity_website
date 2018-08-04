@@ -48,7 +48,7 @@ public class ShiroConfig {
         //配置退出过滤器,具体退出的实现shiro已经进行了封装
         filterChainDefinationMap.put("/logout","logout");
         // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
-        filterChainDefinationMap.put("/**", "authc");
+        filterChainDefinationMap.put("/**", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinationMap);
         logger.info("Shiro拦截器工厂类注入成功");
         return shiroFilterFactoryBean;
