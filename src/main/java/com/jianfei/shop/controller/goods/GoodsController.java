@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author pangjianfei
@@ -36,9 +37,17 @@ public class GoodsController {
         return  standardJsonObject;
     }
 
+    /**
+     * 获取商品的详情页
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/detail")
-    public String getPageDetail(String id){
+    public ModelAndView getPageDetail(String id){
         logger.info("get goods detail,{}",id);
-        return "/goods/goodsDetail";
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/goods/goodsDetail");
+        return mv;
     }
 }

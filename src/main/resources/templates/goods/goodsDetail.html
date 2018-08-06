@@ -3,19 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
 </head>
 <body>
     <label>iphon8</label>
-    <img src="/static/120010812767254099757940_x.jpg">
+    <img src="/static/image/120010812767254099757940_x.jpg" style="width: 100px;height: 200px">
     <br>
-    <span>黑色</span><br>
-    <span>64G</span><br>
+    <span>黑色</span>
+    <span>64G</span>
     <span>全网通</span><br>
-    <span>数量有限，仅10台，秒杀价3000</span><br>
+    <span style="font-size: 12px">数量有限，仅10台，秒杀价3000</span><br>
     <label>距离秒杀开始时间：</label><time>1小时10分钟20秒</time><br>
-    <button href="/goodsOperate/buy?id=10" id="bug">购买</button>
+    <button onclick="buy(10)" id="buy" style="color: crimson">购买</button>
 </body>
 <script>
     document.getElementById("buy").disable = true;
+    function buy(id) {
+        $.ajax({
+            type: 'POST',
+            url: "/goodsOperate/buy",
+            data: "id="+id,
+            dataType: "json",
+            success: function(data) {
+
+            }
+        })
+    }
 </script>
 </html>
