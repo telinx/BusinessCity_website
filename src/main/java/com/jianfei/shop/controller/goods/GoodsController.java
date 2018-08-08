@@ -33,6 +33,7 @@ public class GoodsController {
     @ResponseBody
     public StandardJsonObject buyGoodsById(String id){
         logger.info("buy,{}",id);
+
         StandardJsonObject standardJsonObject = new StandardJsonObject();
         return  standardJsonObject;
     }
@@ -45,7 +46,6 @@ public class GoodsController {
     @RequestMapping(value = "/detail")
     public ModelAndView getPageDetail(String id){
         logger.info("get goods detail,{}",id);
-
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/goods/goodsDetail");
         return mv;
