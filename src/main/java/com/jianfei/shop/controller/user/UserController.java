@@ -64,6 +64,7 @@ public class UserController {
      */
     @RequestMapping("/login")
     public void login(@RequestParam String username, @RequestParam String password,HttpServletResponse response){
+        logger.info("{}{}",username,password);
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username,password);
         try{

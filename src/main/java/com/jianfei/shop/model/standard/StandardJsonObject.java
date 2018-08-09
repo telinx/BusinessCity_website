@@ -16,6 +16,7 @@ public class StandardJsonObject {
 
     public Object data;
     public boolean ret;
+    public String errMsg;
 
     public Object getData() {
         return data;
@@ -33,4 +34,11 @@ public class StandardJsonObject {
         this.ret = ret;
     }
 
+    public String getErrMsg() {
+        return errMsg;
+    }
+
+    public void setErrMsg(String errMsg) {
+        this.errMsg = errMsg;
+    }
 }

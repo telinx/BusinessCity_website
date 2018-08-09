@@ -43,12 +43,12 @@ public class ShiroConfig {
         Map<String,String> filterChainDefinationMap = Maps.newLinkedHashMap();
         //配置不会被拦截的链接，按照顺序进行判断
         filterChainDefinationMap.put("/static/**", "anon");
-        filterChainDefinationMap.put("/ajaxLogin", "anon");
+        filterChainDefinationMap.put("/user/login", "anon");
 
         //配置退出过滤器,具体退出的实现shiro已经进行了封装
         filterChainDefinationMap.put("/logout","logout");
         // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
-        filterChainDefinationMap.put("/**", "anon");
+        filterChainDefinationMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinationMap);
         logger.info("Shiro拦截器工厂类注入成功");
         return shiroFilterFactoryBean;
