@@ -1,7 +1,9 @@
 package com.jianfei.shop.cache;
 
 import com.google.common.collect.Maps;
+import com.jianfei.shop.enums.GoodsStatus;
 import com.jianfei.shop.service.DBToCacheService;
+import com.jianfei.shop.utils.MapConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +24,7 @@ public class GoodsInventoryCache {
     /**
      * 创建缓存的容器，在JDK1.8中ConcurrentHashMap的实现发生了改变
      */
-    private static final ConcurrentHashMap inventoryMap = new ConcurrentHashMap();
+    private static final ConcurrentHashMap<String,Integer> inventoryMap;
 
     @Autowired(required = true)
     public void setDbToCacheService(DBToCacheService dbToCacheService) {
@@ -35,5 +37,33 @@ public class GoodsInventoryCache {
      */
     static {
         Map<String,Integer> integerMap = dbToCacheService.synchronizeInventoryToCache();
+        inventoryMap = MapConvertUtil.converMapToConcurrentHashMap(integerMap);
     }
+
+    /**
+     * 获取某个商品的库存量
+     * @param id
+     * @return
+     */
+    public static int getInventoryById(String id) {
+        return inventoryMap.get(id);
+    }
+
+    /**
+     * 更新某个商品的库存量(1、下架，更新为0 2、销售，库存减1 3、新上架，导入库存)
+     */
+    public static void updateInventoryById(String id, Integer count, GoodsStatus status) {
+        //如果是上架的商品
+        if(status == GoodsStatus.ON_SALE) {
+            if (inventoryMap.containsKey(id)) {
+                int value = inventoryMap.get(id);
+                inventoryMap.put(id, count == null || count < 0 ? value-1 : count);
+            }else {
+                inventoryMap.put(id, count == null || count < 0 ? 0 : count);
+            }
+        }else if (status == GoodsStatus.OFF_SALE) {
+            inventoryMap.put(id,0);
+        }
+    }
+
 }
