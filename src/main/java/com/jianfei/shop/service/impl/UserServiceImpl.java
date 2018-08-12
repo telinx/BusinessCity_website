@@ -1,6 +1,6 @@
 package com.jianfei.shop.service.impl;
 
-import com.jianfei.shop.mybatis.entity.User;
+import com.jianfei.shop.model.po.User;
 import com.jianfei.shop.mybatis.dao.UserDao;
 import com.jianfei.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

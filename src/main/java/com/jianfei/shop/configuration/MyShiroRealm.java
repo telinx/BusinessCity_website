@@ -1,8 +1,8 @@
 package com.jianfei.shop.configuration;
 
-import com.jianfei.shop.mybatis.entity.Role;
-import com.jianfei.shop.mybatis.entity.SysPermission;
-import com.jianfei.shop.mybatis.entity.User;
+import com.jianfei.shop.model.po.Role;
+import com.jianfei.shop.model.po.SysPermission;
+import com.jianfei.shop.model.po.User;
 import com.jianfei.shop.service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;

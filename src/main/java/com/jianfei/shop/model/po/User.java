@@ -1,8 +1,4 @@
-package com.jianfei.shop.mybatis.entity;
-
-import lombok.Getter;
-import lombok.Setter;
-import org.elasticsearch.search.DocValueFormat;
+package com.jianfei.shop.model.po;
 
 import java.util.Date;
 import java.util.Set;

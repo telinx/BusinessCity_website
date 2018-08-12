@@ -1,5 +1,6 @@
 package com.jianfei.shop.controller.goods;
 
+import com.jianfei.shop.model.dto.GoodsOrderResult;
 import com.jianfei.shop.model.standard.StandardJsonObject;
 import com.jianfei.shop.service.GoodsService;
 import com.jianfei.shop.utils.SessionUtils;
@@ -46,7 +47,9 @@ public class GoodsController {
         }
         //进行身份认证,如果是合法的用户，那么进行下单
         if(SessionUtils.isLegalUser(request)) {
-
+            GoodsOrderResult result = goodsService.createOrder(id);
+            standardJsonObject.setRet(true);
+            standardJsonObject.setData(result);
         }else {
             standardJsonObject.setRet(false);
             standardJsonObject.setErrMsg("不是合法的用户");

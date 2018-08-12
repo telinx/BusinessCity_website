@@ -1,8 +1,7 @@
 package com.jianfei.shop.mybatis.dao;
 
-import com.jianfei.shop.mybatis.entity.User;
+import com.jianfei.shop.model.po.User;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 /**
  * @author pangjianfei

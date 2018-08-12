@@ -2,7 +2,7 @@ package com.jianfei.shop.controller.user;
 
 import com.alibaba.fastjson.JSON;
 import com.jianfei.shop.model.standard.StandardJsonObject;
-import com.jianfei.shop.mybatis.entity.User;
+import com.jianfei.shop.model.po.User;
 import com.jianfei.shop.service.UserService;
 import com.jianfei.shop.utils.JsonUtils;
 import org.apache.shiro.SecurityUtils;

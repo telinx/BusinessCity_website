@@ -1,5 +1,6 @@
 package com.jianfei.shop.service.impl;
 
+import com.jianfei.shop.model.dto.GoodsOrderResult;
 import com.jianfei.shop.service.GoodsService;
 import org.springframework.stereotype.Service;
 
@@ -10,4 +11,24 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class GoodsServiceImpl implements GoodsService{
+    /**
+     * 创建订单
+     * @param id
+     * @return
+     */
+    @Override
+    public GoodsOrderResult createOrder(String id) {
+        return null;
+    }
+
+    /**
+     * 商品的库存检测
+     * @param id
+     * @return
+     */
+    @Override
+    public boolean inventoryDetection(String id) {
+
+        return false;
+    }
 }

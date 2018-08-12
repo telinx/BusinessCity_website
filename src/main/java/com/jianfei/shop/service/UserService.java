@@ -1,6 +1,6 @@
 package com.jianfei.shop.service;
 
-import com.jianfei.shop.mybatis.entity.User;
+import com.jianfei.shop.model.po.User;
 
 /**
  * @author pangjianfei

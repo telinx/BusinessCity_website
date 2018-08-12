@@ -1,4 +1,4 @@
-package com.jianfei.shop.mybatis.entity;
+package com.jianfei.shop.model.po;
 
 import java.util.List;
 
