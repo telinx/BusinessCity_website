@@ -2,7 +2,9 @@ package com.jianfei.shop.service.impl;
 
 import com.jianfei.shop.cache.GoodsInventoryCache;
 import com.jianfei.shop.model.dto.GoodsOrderResult;
+import com.jianfei.shop.model.po.OrderDetail;
 import com.jianfei.shop.service.GoodsService;
+import com.jianfei.shop.utils.SessionUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,6 +22,12 @@ public class GoodsServiceImpl implements GoodsService{
      */
     @Override
     public GoodsOrderResult createOrder(String id) {
+        //如果依然有库存
+        if(inventoryDetection(id)) {
+            //创建订单
+            OrderDetail detail = new OrderDetail();
+            detail.setUserId(SessionUtils.getUserId());
+        }
         return null;
     }
 

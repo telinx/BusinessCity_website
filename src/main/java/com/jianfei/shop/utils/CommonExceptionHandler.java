@@ -23,6 +23,6 @@ public class CommonExceptionHandler {
         sjo.setRet(false);
         sjo.setData(null);
         sjo.setErrMsg("系统发生异常，程序员同学正在赶来。。。。");
-        return  sjo;
+        return sjo;
     }
 }
